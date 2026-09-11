@@ -60,11 +60,14 @@
             <a href="#projects" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold px-6 py-3 rounded-xl transition shadow-lg shadow-cyan-500/20 flex items-center gap-2 text-sm md:text-base">
                 <i class="fa-solid fa-diagram-project"></i> View System Architectures
             </a>
+            <a href="https://github.com/sri1513" target="_blank" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold px-5 py-3 rounded-xl transition flex items-center gap-2 text-sm md:text-base">
+                <i class="fa-brands fa-github text-cyan-400"></i> GitHub
+            </a>
             <a href="https://linkedin.com/in/sri-omkar-58r4r4r8" target="_blank" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold px-5 py-3 rounded-xl transition flex items-center gap-2 text-sm md:text-base">
-                <i class="fa-brands fa-linkedin text-cyan-400"></i> LinkedIn
+                <i class="fa-brands fa-linkedin text-blue-400"></i> LinkedIn
             </a>
             <a href="mailto:sri.omkar.d@gmail.com" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold px-5 py-3 rounded-xl transition flex items-center gap-2 text-sm md:text-base">
-                <i class="fa-solid fa-envelope text-blue-400"></i> Email Me
+                <i class="fa-solid fa-envelope text-slate-400"></i> Email Me
             </a>
         </div>
     </section>
@@ -98,12 +101,52 @@
                 <h2 class="text-2xl md:text-3xl font-bold flex items-center gap-3 text-white">
                     <span class="text-cyan-400 font-mono text-xl">01.</span> Architectural Case Studies
                 </h2>
-                <p class="text-sm text-slate-400 mt-2">Production-tested designs focusing on throughput, reliability, and cost-efficiency.</p>
+                <p class="text-sm text-slate-400 mt-2">Production-tested designs focusing on distributed throughput, deterministic RAG, and agentic workflows.</p>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Case Study 1 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Project 1: Flagship Agentic Intelligence Platform -->
+            <div class="bg-slate-900/80 border border-cyan-500/30 hover:border-cyan-400 rounded-2xl p-6 transition flex flex-col justify-between group shadow-xl shadow-cyan-950/20 relative">
+                <div class="absolute -top-3 right-6 bg-cyan-500 text-slate-950 text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full tracking-wider shadow">
+                    Flagship Project
+                </div>
+                <div>
+                    <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-4">
+                        <span class="text-cyan-400 font-semibold"><i class="fa-solid fa-microchip mr-1"></i> MCP PROTOCOL & RAG</span>
+                        <span>Autonomous Engine</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-cyan-400 transition">
+                        Autonomous Job Intelligence & Agentic Synthesis Platform
+                    </h3>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                        Engineered a decoupled platform ingesting high-volume tech job postings into PostgreSQL, evaluating role alignment via a deterministic 5-phase RAG knowledge graph, and orchestrating automated resume synthesis into Google Docs via Model Context Protocol (MCP) JSON-RPC 2.0.
+                    </p>
+                    <div class="bg-slate-950 border border-slate-800/80 rounded-lg p-3 text-[11px] font-mono text-slate-400 mb-4">
+                        <span class="text-cyan-400">Flow:</span> Ingestion &rarr; PostgreSQL (Psycopg 3 Pool) &rarr; Deterministic RAG &rarr; Starlette MCP &rarr; Google Docs API
+                    </div>
+                </div>
+                <div>
+                    <div class="flex flex-wrap gap-1.5 mb-5">
+                        <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">Model Context Protocol</span>
+                        <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">Starlette</span>
+                        <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">PostgreSQL</span>
+                        <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">Psycopg 3</span>
+                        <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">Gemini API</span>
+                        <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">Google Docs API</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-3 border-t border-slate-800/80">
+                        <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-check-circle"></i> Zero-hallucination synthesis & 12/12 CI tests
+                        </span>
+                        <a href="https://github.com/sri1513/de-job-intelligence" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition">
+                            View Repo <i class="fa-brands fa-github text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2: Streaming Lakehouse (Herc Rentals) -->
             <div class="bg-slate-900/70 border border-slate-800 hover:border-cyan-500/40 rounded-2xl p-6 transition flex flex-col justify-between group">
                 <div>
                     <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-4">
@@ -119,19 +162,21 @@
                     </div>
                 </div>
                 <div>
-                    <div class="flex flex-wrap gap-1.5 mb-4">
+                    <div class="flex flex-wrap gap-1.5 mb-5">
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">AWS Kinesis</span>
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">Databricks</span>
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">PySpark</span>
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">AWS S3</span>
                     </div>
-                    <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
-                        <i class="fa-solid fa-check-circle"></i> 40% Faster executive dashboard refreshes
-                    </span>
+                    <div class="pt-3 border-t border-slate-800/80">
+                        <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-check-circle"></i> 40% Faster executive dashboard refreshes
+                        </span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Case Study 2 -->
+            <!-- Project 3: Spark Skew Tuning (Banking / Accenture) -->
             <div class="bg-slate-900/70 border border-slate-800 hover:border-blue-500/40 rounded-2xl p-6 transition flex flex-col justify-between group">
                 <div>
                     <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-4">
@@ -147,19 +192,21 @@
                     </div>
                 </div>
                 <div>
-                    <div class="flex flex-wrap gap-1.5 mb-4">
+                    <div class="flex flex-wrap gap-1.5 mb-5">
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-blue-300">Spark UI</span>
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-blue-300">AQE</span>
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-blue-300">Data Salting</span>
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-blue-300">Redshift</span>
                     </div>
-                    <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
-                        <i class="fa-solid fa-check-circle"></i> 35–40% Batch runtime reduction
-                    </span>
+                    <div class="pt-3 border-t border-slate-800/80">
+                        <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-check-circle"></i> 35–40% Batch runtime reduction
+                        </span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Case Study 3 -->
+            <!-- Project 4: ERP Ingestion (Blue Yonder) -->
             <div class="bg-slate-900/70 border border-slate-800 hover:border-indigo-500/40 rounded-2xl p-6 transition flex flex-col justify-between group">
                 <div>
                     <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-4">
@@ -175,15 +222,17 @@
                     </div>
                 </div>
                 <div>
-                    <div class="flex flex-wrap gap-1.5 mb-4">
+                    <div class="flex flex-wrap gap-1.5 mb-5">
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-indigo-300">FastAPI</span>
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-indigo-300">ADLS Gen2</span>
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-indigo-300">Snowflake</span>
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-indigo-300">Terraform</span>
                     </div>
-                    <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
-                        <i class="fa-solid fa-check-circle"></i> 99.8% Schema reconciliation compliance
-                    </span>
+                    <div class="pt-3 border-t border-slate-800/80">
+                        <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-check-circle"></i> 99.8% Schema reconciliation compliance
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -290,7 +339,7 @@
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Databricks</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">AWS Kinesis</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Athena</span>
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">HiveQL</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Delta Lake</span>
                     </div>
                 </div>
 
@@ -301,32 +350,32 @@
                     </div>
                     <h3 class="text-base font-bold mb-3 text-white">Warehousing & Modeling</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Amazon Redshift</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">PostgreSQL (Psycopg 3)</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Snowflake</span>
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">PostgreSQL</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Amazon Redshift</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Teradata</span>
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Microsoft SQL Server</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">SQL Server</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Star Schema</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">SCD Type 2</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">CDC</span>
                     </div>
                 </div>
 
-                <!-- DevOps & Orchestration -->
+                <!-- DevOps, Protocols & AI Architecture -->
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
                     <div class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-4 text-lg">
                         <i class="fa-solid fa-gears"></i>
                     </div>
-                    <h3 class="text-base font-bold mb-3 text-white">DevOps & Tooling</h3>
+                    <h3 class="text-base font-bold mb-3 text-white">DevOps, Protocols & AI</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Python</span>
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">SQL</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-cyan-500/40 text-cyan-300">Model Context Protocol (MCP)</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-cyan-500/40 text-cyan-300">Deterministic RAG</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Starlette / Uvicorn</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Python 3.12</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Apache Airflow</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">FastAPI</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Docker</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Terraform</span>
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">GitHub Actions</span>
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Spark UI Profiling</span>
                     </div>
                 </div>
             </div>
@@ -361,7 +410,6 @@
                     </div>
 
                     <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between">
-                        <!-- Paste your exact public Credly URL in the href below -->
                         <a href="https://www.credly.com/badges/019a192d-fb81-4a58-a612-a1226630e8e5/public_url" 
                         target="_blank" 
                         rel="noopener noreferrer"
@@ -371,7 +419,6 @@
                         <i class="fa-brands fa-aws text-slate-700 text-xl group-hover:text-[#FF9900] transition"></i>
                     </div>
                 </div>
-                <!-- Duplicate the card above if you have more certificates -->
             </div>
         </div>
     </section>
@@ -405,6 +452,7 @@
             <a href="mailto:sri.omkar.d@gmail.com" class="hover:text-cyan-400 transition" title="Email"><i class="fa-solid fa-envelope"></i></a>
             <a href="tel:+19515452146" class="hover:text-cyan-400 transition" title="Phone"><i class="fa-solid fa-phone"></i></a>
             <a href="https://linkedin.com/in/sri-omkar-58r4r4r8" target="_blank" class="hover:text-cyan-400 transition" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://github.com/sri1513" target="_blank" class="hover:text-cyan-400 transition" title="GitHub"><i class="fa-brands fa-github"></i></a>
         </div>
         <p class="text-xs text-slate-600">© 2026 Sri Omkar D. Hosted on Cloudflare Pages via <span class="text-cyan-500">sriomkar.com</span></p>
     </footer>
