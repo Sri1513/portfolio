@@ -670,7 +670,7 @@
                 var response = await fetch(ENDPOINT, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
-                    body: JSON.stringify({ question: question }),
+                    body: JSON.stringify({ message: question }),
                     signal: aborter.signal
                 });
                 // The backend route does not exist in production yet: any
