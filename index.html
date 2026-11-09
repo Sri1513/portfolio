@@ -599,6 +599,12 @@
         var trace = document.getElementById('ask-omkar-trace');
         var aborter = null;
         var busy = false;
+        // Conversation history sent with each POST (last 6 turns) so the
+        // backend can follow up across turns -- the appointment flow
+        // needs to know it asked for details. No server-side sessions;
+        // this lives only in the open drawer. The welcome bubble is not
+        // part of the history.
+        var history = [];
 
         function setOpen(open) {
             panel.hidden = !open;
@@ -662,6 +668,8 @@
             var userEl = addBubble('user');
             userEl.textContent = question;
             input.value = '';
+            history.push({ role: 'user', text: question });
+            if (history.length > 12) { history = history.slice(-12); }
             var answerEl = addBubble('assistant');
             var state = { gotAnswer: false };
             setTrace('Connecting…');
@@ -670,7 +678,7 @@
                 var response = await fetch(ENDPOINT, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
-                    body: JSON.stringify({ message: question }),
+                    body: JSON.stringify({ message: question, history: history.slice(-6) }),
                     signal: aborter.signal
                 });
                 // The backend route does not exist in production yet: any
@@ -697,6 +705,8 @@
                     showNotLive();
                 } else {
                     setTrace('');
+                    history.push({ role: 'assistant', text: answerEl.textContent });
+                    if (history.length > 12) { history = history.slice(-12); }
                 }
             } catch (err) {
                 if (err && err.name === 'AbortError') { return; }
