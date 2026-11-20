@@ -34,9 +34,6 @@
                 <a href="#education" class="hover:text-cyan-400 transition">Education</a>
             </nav>
             <div class="flex items-center gap-3">
-                <a href="./assets/resume.pdf" target="_blank" download="Sri_Omkar_Resume.pdf" class="hidden sm:inline-flex items-center gap-2 border border-slate-700 hover:border-cyan-400/50 text-slate-300 hover:text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold transition">
-                    <i class="fa-solid fa-file-arrow-down text-cyan-400"></i> Resume
-                </a>
                 <a href="mailto:sri.omkar.d@gmail.com" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold px-4 py-2 rounded-lg text-xs md:text-sm transition shadow-lg shadow-cyan-500/20">
                     Get in Touch
                 </a>
@@ -59,7 +56,7 @@
         </p>
         
         <p class="text-lg md:text-2xl text-slate-300 max-w-3xl mb-8 leading-relaxed font-light">
-            I'm <strong class="text-white font-semibold">Sri Omkar D</strong>, a Senior Data Engineer with 7+ years of experience building enterprise ETL pipelines and leading cloud migration initiatives — IBM DataStage, SSIS, PySpark, and AWS-native data platforms — and shipping LLM systems in production: fit scoring and tailored resumes over 1,600+ tracked jobs, WhatsApp outreach, and an MCP-served platform, on quota-aware Gemini→Groq failover with a human review gate on every outbound action.
+            I'm <strong class="text-white font-semibold">Sri Omkar D</strong>, a Senior Data Engineer with 7+ years of experience building enterprise ETL pipelines and leading cloud migration initiatives — IBM DataStage, SSIS, PySpark, and AWS-native data platforms — and shipping LLM systems in production: fit scoring and tailored resumes over 2,300+ tracked jobs, WhatsApp outreach, and an MCP-served platform, on quota-aware Gemini→Groq failover with a human review gate on every outbound action.
         </p>
         
         <div class="flex flex-wrap items-center gap-4">
@@ -92,15 +89,15 @@
                 <p class="text-xs md:text-sm text-slate-400 mt-1 uppercase tracking-wider font-semibold">Enterprise Experience</p>
             </div>
             <div>
-                <p class="text-3xl md:text-4xl font-extrabold text-blue-400 font-mono">25–40%</p>
-                <p class="text-xs md:text-sm text-slate-400 mt-1 uppercase tracking-wider font-semibold">Runtime Latency Reduction</p>
+                <p class="text-3xl md:text-4xl font-extrabold text-blue-400 font-mono">25–30%</p>
+                <p class="text-xs md:text-sm text-slate-400 mt-1 uppercase tracking-wider font-semibold">Batch Runtime Reduction</p>
             </div>
             <div>
-                <p class="text-3xl md:text-4xl font-extrabold text-indigo-400 font-mono">Multi-TB</p>
-                <p class="text-xs md:text-sm text-slate-400 mt-1 uppercase tracking-wider font-semibold">Daily Pipeline Scale</p>
+                <p class="text-3xl md:text-4xl font-extrabold text-indigo-400 font-mono">30–40%</p>
+                <p class="text-xs md:text-sm text-slate-400 mt-1 uppercase tracking-wider font-semibold">Pipeline Rerun Effort Reduction</p>
             </div>
             <div>
-                <p class="text-3xl md:text-4xl font-extrabold text-emerald-400 font-mono">1,600+</p>
+                <p class="text-3xl md:text-4xl font-extrabold text-emerald-400 font-mono">2,300+</p>
                 <p class="text-xs md:text-sm text-slate-400 mt-1 uppercase tracking-wider font-semibold">Jobs Tracked End-To-End</p>
             </div>
         </div>
@@ -150,7 +147,7 @@
                     </div>
                     <div class="flex items-center justify-between pt-3 border-t border-slate-800/80">
                         <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
-                            <i class="fa-solid fa-check-circle"></i> 1,600+ jobs tracked end-to-end: ingest &rarr; score &rarr; tailor &rarr; track
+                            <i class="fa-solid fa-check-circle"></i> 2,300+ jobs tracked end-to-end: ingest &rarr; score &rarr; tailor &rarr; track
                         </span>
                         <div class="flex items-center gap-4">
                             <a href="https://jobs.sriomkar.com" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition">
@@ -205,22 +202,25 @@
                     </div>
                     <h3 class="text-lg font-bold text-white mb-2 group-hover:text-cyan-400 transition">IoT Fleet Telemetry & Asset Engine</h3>
                     <p class="text-xs text-slate-400 leading-relaxed mb-4">
-                        Ingested high-frequency JSON/XML telemetry payloads from 50,000+ rental units via AWS Kinesis. Orchestrated structured streaming via Databricks to feed S3 Delta Lake curated layers for operational Qlik Sense dashboards.
+                        Ingested high-frequency JSON/XML telemetry payloads from 50,000+ rental units via Apache Kafka and AWS Kinesis. Orchestrated Databricks Structured Streaming with Auto Loader and Delta Live Tables (DLT) into Medallion (Bronze/Silver/Gold) layers under Unity Catalog governance, feeding curated layers for operational Qlik Sense dashboards.
                     </p>
                     <div class="bg-slate-950 border border-slate-800/80 rounded-lg p-3 text-[11px] font-mono text-slate-400 mb-4">
-                        <span class="text-blue-400">Pipeline:</span> Kinesis &rarr; Databricks Streaming &rarr; S3 Curated &rarr; Qlik Sense
+                        <span class="text-blue-400">Pipeline:</span> Kafka + Kinesis &rarr; Databricks Structured Streaming &rarr; Auto Loader / DLT &rarr; Medallion (Bronze/Silver/Gold) &rarr; Qlik Sense
                     </div>
                 </div>
                 <div>
                     <div class="flex flex-wrap gap-1.5 mb-5">
+                        <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">Apache Kafka</span>
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">AWS Kinesis</span>
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">Databricks</span>
+                        <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">Delta Live Tables</span>
+                        <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">Unity Catalog</span>
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">PySpark</span>
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-cyan-300">AWS S3</span>
                     </div>
                     <div class="pt-3 border-t border-slate-800/80">
                         <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
-                            <i class="fa-solid fa-check-circle"></i> 40% Faster executive dashboard refreshes
+                            <i class="fa-solid fa-check-circle"></i> 25–30% reduction in daily batch runtimes
                         </span>
                     </div>
                 </div>
@@ -265,10 +265,10 @@
                     </div>
                     <h3 class="text-lg font-bold text-white mb-2 group-hover:text-indigo-400 transition">Asynchronous ERP Ingestion Engine</h3>
                     <p class="text-xs text-slate-400 leading-relaxed mb-4">
-                        Architected an API-driven extraction framework using Python, FastAPI, and SQLAlchemy to ingest multi-source enterprise client ERP files, enforcing strict schema validation and staging to Azure Data Lake Storage Gen2.
+                        Architected an API-driven extraction framework using Python, FastAPI, and SQLAlchemy to ingest multi-source enterprise client ERP files, enforcing strict schema validation and staging to Azure Data Lake Storage Gen2. Also supported cross-cloud Lakehouse replatforming from Azure Databricks and ADLS Gen2 to Databricks on GCP and Google Cloud Storage via Storage Transfer Service, with event feeds moving from Azure Event Hubs and Kafka to GCP Pub/Sub.
                     </p>
                     <div class="bg-slate-950 border border-slate-800/80 rounded-lg p-3 text-[11px] font-mono text-slate-400 mb-4">
-                        <span class="text-indigo-400">Stack:</span> FastAPI &rarr; ADLS Gen2 &rarr; Azure Databricks &rarr; Snowflake
+                        <span class="text-indigo-400">Stack:</span> FastAPI &rarr; ADLS Gen2 &rarr; Azure Databricks &rarr; GCP/GCS via Storage Transfer Service; Event Hubs/Kafka &rarr; Pub/Sub &rarr; Snowflake
                     </div>
                 </div>
                 <div>
@@ -277,10 +277,12 @@
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-indigo-300">ADLS Gen2</span>
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-indigo-300">Snowflake</span>
                         <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-indigo-300">Terraform</span>
+                        <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-indigo-300">GitHub Actions</span>
+                        <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-indigo-300">Google Cloud Storage</span>
                     </div>
                     <div class="pt-3 border-t border-slate-800/80">
                         <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
-                            <i class="fa-solid fa-check-circle"></i> 99.8% Schema reconciliation compliance
+                            <i class="fa-solid fa-check-circle"></i> Source-to-target reconciliation checks on every load
                         </span>
                     </div>
                 </div>
@@ -301,17 +303,18 @@
                     <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-cyan-400 border-4 border-slate-950"></div>
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
                         <h3 class="text-lg md:text-xl font-bold text-white">
-                            Data Engineer <span class="text-cyan-400">@ Nortek Consulting INC — Client: Optum</span>
+                            Data Engineer <span class="text-cyan-400">@ Optum</span>
                         </h3>
                         <span class="text-xs font-semibold px-3 py-1 rounded-full bg-slate-900 text-slate-300 border border-slate-800 w-fit mt-1 sm:mt-0">Oct 2025 - Present</span>
                     </div>
                     <p class="text-xs text-slate-500 mb-4 font-mono">Florida, USA &bull; Analytics & Reporting Platform</p>
                     <ul class="space-y-2.5 text-sm text-slate-300 max-w-4xl">
-                        <li class="flex items-start gap-2.5"><i class="fa-solid fa-caret-right text-cyan-400 text-sm mt-0.5"></i> Own, monitor, and optimize Databricks + PySpark pipelines feeding daily KPI reporting layers.</li>
+                        <li class="flex items-start gap-2.5"><i class="fa-solid fa-caret-right text-cyan-400 text-sm mt-0.5"></i> Led the end-to-end migration of 30+ legacy ETL workflows (12 SSIS, 22 IBM DataStage) into AWS Glue, PySpark, Lambda, S3 and Redshift.</li>
                         <li class="flex items-start gap-2.5"><i class="fa-solid fa-caret-right text-cyan-400 text-sm mt-0.5"></i> Cut nightly load runtime 50% (7:30 AM → 3:00 AM) via re-partitioning and query tuning — dashboards refresh before the business day.</li>
-                        <li class="flex items-start gap-2.5"><i class="fa-solid fa-caret-right text-cyan-400 text-sm mt-0.5"></i> Tuned Delta Lake tables (OPTIMIZE, Z-Ordering) — Tableau workbook queries from 40s+ to under 4s.</li>
+                        <li class="flex items-start gap-2.5"><i class="fa-solid fa-caret-right text-cyan-400 text-sm mt-0.5"></i> Enforced HIPAA and HITRUST compliance with PHI masking, RBAC, and end-to-end lineage across healthcare pipelines.</li>
+                        <li class="flex items-start gap-2.5"><i class="fa-solid fa-caret-right text-cyan-400 text-sm mt-0.5"></i> Built real-time Kafka CDC ingestion from SQL Server and PostgreSQL sources into cloud raw zones, with automated schema-drift checks.</li>
+                        <li class="flex items-start gap-2.5"><i class="fa-solid fa-caret-right text-cyan-400 text-sm mt-0.5"></i> Signed off production cutovers with parallel dual-run validation, row-count parity, and column-by-column regression testing.</li>
                         <li class="flex items-start gap-2.5"><i class="fa-solid fa-caret-right text-cyan-400 text-sm mt-0.5"></i> Automated manual workflows with Python/PySpark: data archiving, schema validation for nested inputs, failure alerting.</li>
-                        <li class="flex items-start gap-2.5"><i class="fa-solid fa-caret-right text-cyan-400 text-sm mt-0.5"></i> Lead root-cause analysis on metric anomalies; automated source-to-target reconciliation to catch drift before downstream reports.</li>
                     </ul>
                 </div>
 
@@ -357,7 +360,7 @@
                     <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-700 border-4 border-slate-950"></div>
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
                         <h3 class="text-lg md:text-xl font-bold text-white">
-                            Data Engineer <span class="text-cyan-400">@ Trigent Software (Accenture)</span>
+                            Data Engineer <span class="text-cyan-400">@ Trigent Software Pvt Ltd. (Accenture Solutions Pvt Ltd.)</span>
                         </h3>
                         <span class="text-xs font-semibold px-3 py-1 rounded-full bg-slate-900 text-slate-300 border border-slate-800 w-fit mt-1 sm:mt-0">Jan 2020 - June 2022</span>
                     </div>
@@ -409,6 +412,7 @@
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">SQL Server Agent</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Cloud Migration</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Data Mapping</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">SQL</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">T-SQL / PL-SQL</span>
                     </div>
                 </div>
@@ -421,13 +425,22 @@
                     <h3 class="text-base font-bold mb-3 text-white">Cloud & Distributed Compute</h3>
                     <div class="flex flex-wrap gap-2">
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">AWS (S3, EMR, Glue)</span>
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Azure (ADLS Gen2)</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Microsoft Azure (ADLS Gen2, Azure Databricks)</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Apache Spark</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">PySpark</span>
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Databricks</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Databricks (Azure &amp; GCP)</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">AWS Kinesis</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Athena</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Delta Lake</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Google Cloud Platform (GCP)</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Delta Live Tables (DLT)</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Auto Loader</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Unity Catalog</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Google Cloud Storage (GCS)</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Storage Transfer Service (STS)</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Apache Kafka</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Azure Event Hubs</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">GCP Pub/Sub</span>
                     </div>
                 </div>
 
@@ -465,7 +478,6 @@
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Python 3.12</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Apache Airflow</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">FastAPI</span>
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Docker</span>
                         <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300">Terraform</span>
                     </div>
                 </div>
