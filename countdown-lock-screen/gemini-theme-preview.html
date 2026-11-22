@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gemini Theme Preview — Pax8, Nov 30</title>
+<!--
+  PREVIEW ONLY — reconstructed from Gemini reply 6 ("ready-to-paste" reactive
+  theme code) in the Handshake chat. NOT on the de-job-intelligence branch.
+  The chat view truncated some long lines and showed the same layer with
+  different values in different renderings; choices made here:
+  - base #070a10, grid 32px / rgba(255,255,255,0.03) / opacity 0.55
+  - clock shield 28vh (the figure in Gemini's "How It Renders" section)
+  - card max-width 410px, background rgba(13,18,28,0.74), blur 18px
+  - DAG SVG opacity 0.12 (the subtle rendering, not 0.45)
+  - only the first SVG variant is included (fully quoted in the chat); the
+    second variant's extra spine paths were not fully readable, so omitted
+  - gradient layer driven by CSS vars (theme switching works through the
+    vars); the script also sets the layer's class, as Gemini wrote it
+  Content inside the card is our lockscreen content (Pax8, fit 63,
+  deadline 2026-11-30T23:59:00-05:00, the four milestones).
+-->
+<style>
+  :root {
+    --bg-void: #070a10;
+    --grid-line: rgba(255, 255, 255, 0.032);
+    --grid-major: rgba(255, 255, 255, 0.06);
+    --accent-primary: #10b981;
+    --accent-secondary: #06b6d4;
+    --glow-rgb: 16, 185, 129;
+    --bg-card: rgba(13, 18, 28, 0.72);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+  }
+  [data-theme="high-fit"] { --accent-primary: #34d399; --accent-secondary: #38bdf8; --glow-rgb: 52, 211, 153; }
+  [data-theme="amber-warning"] { --accent-primary: #f59e0b; --accent-secondary: #fbbf24; --glow-rgb: 245, 158, 11; }
+  [data-theme="crimson-sprint"] { --accent-primary: #ef4444; --accent-secondary: #f87171; --glow-rgb: 239, 68, 68; }
+  [data-theme="low-fit"] { --accent-primary: #64748b; --accent-secondary: #94a3b8; --glow-rgb: 100, 116, 139; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg-void);
+    color: var(--text-primary);
+    font-family: Inter, system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Layer 1 — Reactive Gradient */
+  .bg-gradient {
+    position: absolute; inset: 0; z-index: 1;
+    transition: background 1.2s ease;
+    pointer-events: none;
+    background:
+      radial-gradient(120% 60% at 50% 0%, rgba(var(--glow-rgb), 0.28) 0%, transparent 55%),
+      linear-gradient(180deg, rgba(var(--glow-rgb), 0.12) 0%, transparent 60%);
+  }
+
+  /* Layer 2 — Blueprint Grid */
+  .bg-blueprint-grid {
+    position: absolute; inset: 0; z-index: 2;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    -webkit-mask-image: radial-gradient(120% 90% at 50% 40%, #000 30%, transparent 100%);
+    mask-image: radial-gradient(120% 90% at 50% 40%, #000 30%, transparent 100%);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  /* Layer 3 — SVG DAG Nodes */
+  .bg-pipeline-svg {
+    position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3;
+    opacity: 0.12;
+    pointer-events: none;
+  }
+
+  /* Layer 4 — Clock Shield (top 28vh pitch-black) */
+  .bg-clock-shield {
+    position: absolute; top: 0; left: 0; right: 0; height: 28vh; z-index: 4;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.88) 0%, rgba(7, 10, 16, 0.55) 60%, transparent 100%);
+    pointer-events: none;
+  }
+
+  /* Card */
+  .lockscreen-shell {
+    position: relative; z-index: 10;
+    width: 100%; max-width: 410px; margin: 0 auto;
+    background: rgba(13, 18, 28, 0.74);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(var(--glow-rgb), 0.28);
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .eyebrow {
+    font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent-secondary); text-align: center; margin-bottom: 10px;
+  }
+  .deadline-name {
+    font-size: 24px; line-height: 1.2; font-weight: 700; text-align: center;
+  }
+  .deadline-sub {
+    font-size: 14px; color: var(--text-secondary); text-align: center; margin-top: 6px;
+  }
+  .count { display: flex; justify-content: center; gap: 10px; margin: 22px 0 6px; }
+  .unit {
+    width: 72px; padding: 12px 0 10px; text-align: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-subtle); border-radius: 16px;
+  }
+  .unit b { display: block; font-size: 30px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .unit span { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-secondary); }
+  .due { text-align: center; font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; }
+  .bar-track { height: 8px; border-radius: 99px; background: rgba(255, 255, 255, 0.14); overflow: hidden; }
+  .bar-fill { height: 100%; width: 0%; border-radius: 99px; background: var(--accent-primary); transition: width 0.5s; }
+  .bar-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-secondary); margin: 8px 2px 22px; }
+  .miles-title { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-secondary); margin-bottom: 12px; }
+  .mile {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 4px; border-top: 1px solid rgba(255, 255, 255, 0.10);
+    font-size: 14px;
+  }
+  .mile:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.10); }
+  .dot {
+    width: 26px; height: 26px; flex: none; border-radius: 50%;
+    border: 2px solid var(--accent-primary); display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: var(--accent-primary);
+  }
+  .mile.done .dot { background: var(--accent-primary); color: #08161a; }
+  .mile.done .mile-text { color: var(--text-secondary); text-decoration: line-through; }
+  .mile-date { margin-left: auto; font-size: 12px; color: var(--text-secondary); white-space: nowrap; }
+  .mile.next .mile-text { font-weight: 700; }
+  .mile.next .dot { box-shadow: 0 0 0 4px rgba(var(--glow-rgb), 0.25); }
+  .foot { margin-top: 20px; text-align: center; font-size: 12px; color: var(--text-secondary); }
+</style>
+</head>
+<body data-fit-score="63" data-deadline="2026-11-30T23:59:00-05:00" data-theme="high-fit">
+  <div class="bg-blueprint-grid" aria-hidden="true"></div>
+  <div class="bg-gradient" id="bgGradient"></div>
+  <svg class="bg-pipeline-svg" viewBox="0 0 390 844" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="gradLine" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8" />
+        <stop offset="100%" stop-color="#34d399" stop-opacity="0.1" />
+      </linearGradient>
+    </defs>
+    <path d="M -20 140 C 80 140, 40 280, 110 340 S 60 520, 120 600" stroke="url(#gradLine)" stroke-width="1.2" stroke-dasharray="4 6" />
+    <circle cx="110" cy="340" r="3.5" fill="#38bdf8" />
+    <circle cx="120" cy="600" r="3.5" fill="#38bdf8" />
+    <path d="M 410 220 C 310 220, 350 360, 280 420 S 330 600, 270 680" stroke="url(#gradLine)" stroke-width="1.2" stroke-dasharray="4 6" />
+    <circle cx="280" cy="420" r="3.5" fill="#34d399" />
+    <circle cx="270" cy="680" r="3.5" fill="#34d399" />
+  </svg>
+  <div class="bg-clock-shield"></div>
+
+  <main class="lockscreen-shell">
+    <div class="eyebrow">Your deadline</div>
+    <div class="deadline-name">Pax8 — Senior Data Engineer II</div>
+    <div class="deadline-sub">Remote (US) &middot; $175K&ndash;$225K</div>
+
+    <div class="count">
+      <div class="unit"><b id="d">--</b><span>Days</span></div>
+      <div class="unit"><b id="h">--</b><span>Hours</span></div>
+      <div class="unit"><b id="m">--</b><span>Mins</span></div>
+      <div class="unit"><b id="s">--</b><span>Secs</span></div>
+    </div>
+    <div class="due">Applications close Nov 30, 2026</div>
+
+    <div class="bar-track"><div class="bar-fill" id="bar"></div></div>
+    <div class="bar-label"><span>Nov 16</span><span id="barPct">0% of the runway used</span><span>Nov 30</span></div>
+
+    <div class="miles-title">Milestones</div>
+    <div id="miles"></div>
+
+    <div class="foot">Built for the countdown — one deadline, no noise.</div>
+  </main>
+
+<script>
+  var DEADLINE = new Date("2026-11-30T23:59:00-05:00");
+  var START     = new Date("2026-11-16T00:00:00-05:00");
+  var MILESTONES = [
+    { text: "Build the tailored package", date: "Nov 17", done: true },
+    { text: "Final look — resume + cover letter", date: "Nov 18", done: true },
+    { text: "Submit on Pax8 Workday", date: "Nov 20", done: true },
+    { text: "Follow up if no receipt", date: "Nov 24", done: false }
+  ];
+
+  var pad = function (n) { return String(n).padStart(2, "0"); };
+
+  function renderMiles() {
+    var box = document.getElementById("miles");
+    box.innerHTML = "";
+    var nextMarked = false;
+    MILESTONES.forEach(function (ms) {
+      var div = document.createElement("div");
+      var cls = "mile" + (ms.done ? " done" : (!nextMarked ? " next" : ""));
+      if (!ms.done && !nextMarked) nextMarked = true;
+      div.className = cls;
+      div.innerHTML =
+        '<span class="dot">' + (ms.done ? "&#10003;" : "") + "</span>" +
+        '<span class="mile-text">' + ms.text + "</span>" +
+        '<span class="mile-date">' + ms.date + "</span>";
+      box.appendChild(div);
+    });
+  }
+
+  function tick() {
+    var now = new Date();
+    var diff = DEADLINE - now;
+    if (diff < 0) diff = 0;
+    var days = Math.floor(diff / 86400000);
+    var hrs  = Math.floor(diff / 3600000) % 24;
+    var mins = Math.floor(diff / 60000) % 60;
+    var secs = Math.floor(diff / 1000) % 60;
+    document.getElementById("d").textContent = days;
+    document.getElementById("h").textContent = pad(hrs);
+    document.getElementById("m").textContent = pad(mins);
+    document.getElementById("s").textContent = pad(secs);
+    var total = DEADLINE - START, used = now - START;
+    var pct = Math.max(0, Math.min(100, Math.round((used / total) * 100)));
+    document.getElementById("bar").style.width = pct + "%";
+    document.getElementById("barPct").textContent = pct + "% of the runway used";
+  }
+
+  renderMiles();
+  tick();
+  setInterval(tick, 1000);
+
+  // Gemini's theme sync script, verbatim as shown in the chat.
+  (function syncReactiveTheme() {
+    const body = document.body;
+    const fitScore = Number(body.dataset.fitScore || 63);
+    const deadline = new Date(body.dataset.deadline);
+    const bg = document.getElementById('bgGradient');
+    function updateTheme() {
+      const now = new Date();
+      const hoursLeft = (deadline - now) / (1000 * 60 * 60);
+      let theme = 'high-fit';
+      if (hoursLeft <= 24) theme = 'crimson-sprint';
+      else if (hoursLeft <= 72) theme = 'amber-warning';
+      else if (fitScore < 60) theme = 'low-fit';
+      body.dataset.theme = theme;
+      if (bg) {
+        bg.className = 'bg-gradient ' + theme;
+      }
+    }
+    updateTheme();
+    setInterval(updateTheme, 60 * 1000);
+  })();
+</script>
+</body>
+</html>
