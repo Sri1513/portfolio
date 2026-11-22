@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dream Job Countdown — Pax8, Nov 30, 2026</title>
+<!--
+  DREAM-JOB PREVIEW (2026-11-22) — design direction from Omkar:
+  - Background: mountain dawn photo (#3 "layered glow", Pexels, free license)
+    instead of the flat teal gradient. Dark overlay keeps text legible and
+    the top ~150px dark for the phone clock.
+  - Milestones live inside one frosted-glass panel (backdrop blur) instead
+    of bare rows on the gradient.
+  - Countdown shrunk (units 60px, numbers 24px) to make room for MORE
+    milestones: 6 rows now, all real Pax8 dates (saved Nov 14, gate Nov 16,
+    package + submit Nov 17, follow-up Nov 24, reply expected Nov 27).
+  - "Decrease the countdown time" read as: shrink the countdown display.
+  PREVIEW ONLY — not wired into the /lockscreen route yet. If approved,
+  port this into src/dashboard/templates/lockscreen.html on a new branch.
+-->
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #08161a;
+    display: flex; justify-content: center;
+    color: #f2f7f7;
+  }
+  .screen {
+    width: 390px; max-width: 100vw; min-height: 844px; height: 100dvh;
+    position: relative; overflow: hidden;
+    background:
+      linear-gradient(180deg, rgba(6,11,14,.80) 0%, rgba(6,11,14,.45) 28%, rgba(6,11,14,.52) 60%, rgba(6,11,14,.78) 100%),
+      url("bg-layered-glow.webp") center 30% / cover no-repeat,
+      #08161a;
+    padding: 0 28px 30px;
+    display: flex; flex-direction: column;
+  }
+  /* Top ~150px deliberately empty: room for the phone clock + status icons */
+  .clock-space { height: 148px; flex: none; }
+  .eyebrow {
+    font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+    color: #ffd9a0; text-align: center; margin-bottom: 10px;
+  }
+  .deadline-name {
+    font-size: 26px; line-height: 1.2; font-weight: 700;
+    text-align: center; text-shadow: 0 2px 12px rgba(0,0,0,.55);
+  }
+  .deadline-sub {
+    font-size: 14px; color: #d8e6e2; text-align: center; margin-top: 6px;
+    text-shadow: 0 1px 8px rgba(0,0,0,.55);
+  }
+  /* Countdown, shrunk to make room for 6 milestones */
+  .count { display: flex; justify-content: center; gap: 8px; margin: 18px 0 4px; }
+  .unit {
+    width: 60px; padding: 9px 0 8px; text-align: center;
+    background: rgba(10,18,20,.55);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,.18); border-radius: 14px;
+  }
+  .unit b { display: block; font-size: 24px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .unit span { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #cfe3de; }
+  .due { text-align: center; font-size: 13px; color: #d8e6e2; margin-bottom: 16px; text-shadow: 0 1px 8px rgba(0,0,0,.55); }
+  .bar-track { height: 8px; border-radius: 99px; background: rgba(255,255,255,.18); overflow: hidden; }
+  .bar-fill { height: 100%; width: 0%; border-radius: 99px; background: #2fb3a3; transition: width .5s; }
+  .bar-label { display: flex; justify-content: space-between; font-size: 12px; color: #cfe3de; margin: 8px 2px 16px; text-shadow: 0 1px 6px rgba(0,0,0,.5); }
+  /* Frosted-glass milestone panel */
+  .miles-panel {
+    background: rgba(9,15,19,.50);
+    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 18px;
+    padding: 14px 16px 6px;
+  }
+  .miles-title { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: #ffd9a0; margin-bottom: 4px; }
+  .mile {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0; border-top: 1px solid rgba(255,255,255,.10);
+    font-size: 13.5px;
+  }
+  .mile:first-of-type { border-top: none; }
+  .mile .dot {
+    width: 22px; height: 22px; flex: none; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+  }
+  .mile.done .dot { background: #2fb3a3; color: #062a26; }
+  .mile.open .dot { border: 2px solid #ffd9a0; color: transparent; background: rgba(255,217,160,.08); }
+  .mile .label { flex: 1; }
+  .mile.done .label { text-decoration: line-through; color: #b9d6d2; }
+  .mile .when { color: #cfe3de; font-size: 12.5px; white-space: nowrap; }
+  .foot { margin-top: auto; padding-top: 18px; text-align: center; font-size: 12px; color: #b9d6d2; text-shadow: 0 1px 6px rgba(0,0,0,.5); }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="clock-space"></div>
+  <div class="eyebrow">Dream Job Countdown</div>
+  <div class="deadline-name">Pax8 — Senior Data Engineer II</div>
+  <div class="deadline-sub">USA · Fit 63/100</div>
+
+  <div class="count">
+    <div class="unit"><b id="d">--</b><span>Days</span></div>
+    <div class="unit"><b id="h">--</b><span>Hours</span></div>
+    <div class="unit"><b id="m">--</b><span>Mins</span></div>
+    <div class="unit"><b id="s">--</b><span>Secs</span></div>
+  </div>
+  <div class="due">Applications close Nov 30, 2026</div>
+
+  <div class="bar-track"><div class="bar-fill" id="bar"></div></div>
+  <div class="bar-label"><span>Nov 16</span><span id="barPct">0% of the runway used</span><span>Nov 30</span></div>
+
+  <div class="miles-panel">
+    <div class="miles-title">Milestones</div>
+    <div class="mile done"><span class="dot">✓</span><span class="label">Job saved</span><span class="when">Nov 14</span></div>
+    <div class="mile done"><span class="dot">✓</span><span class="label">Gate passed</span><span class="when">Nov 16</span></div>
+    <div class="mile done"><span class="dot">✓</span><span class="label">Tailored package built</span><span class="when">Nov 17</span></div>
+    <div class="mile done"><span class="dot">✓</span><span class="label">Application submitted</span><span class="when">Nov 17</span></div>
+    <div class="mile open"><span class="dot">○</span><span class="label">Follow up if no receipt</span><span class="when">Nov 24</span></div>
+    <div class="mile open"><span class="dot">○</span><span class="label">Reply expected</span><span class="when">Nov 27</span></div>
+  </div>
+
+  <div class="foot">Built for the countdown — one deadline, no noise.</div>
+</div>
+
+<script>
+  var DEADLINE = new Date("2026-11-30T23:59:00-05:00");
+  var START     = new Date("2026-11-16T23:59:00-05:00");
+
+  var pad = function (n) { return String(n).padStart(2, "0"); };
+
+  function tick() {
+    var now = new Date();
+    var diff = DEADLINE - now;
+    if (diff < 0) diff = 0;
+    var days = Math.floor(diff / 86400000);
+    var hrs  = Math.floor(diff / 3600000) % 24;
+    var mins = Math.floor(diff / 60000) % 60;
+    var secs = Math.floor(diff / 1000) % 60;
+    document.getElementById("d").textContent = days;
+    document.getElementById("h").textContent = pad(hrs);
+    document.getElementById("m").textContent = pad(mins);
+    document.getElementById("s").textContent = pad(secs);
+    var total = DEADLINE - START, used = now - START;
+    var pct = Math.max(0, Math.min(100, Math.round((used / total) * 100)));
+    document.getElementById("bar").style.width = pct + "%";
+    document.getElementById("barPct").textContent = pct + "% of the runway used";
+  }
+
+  tick();
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>
