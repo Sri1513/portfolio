@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sri Omkar D | Senior Data Engineer — ETL, Cloud Migration & Lakehouse</title>
+    <title>Sri Omkar D | Senior Data Engineer — Data Platforms &amp; AI Systems</title>
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -44,19 +44,27 @@
     <!-- Hero Section -->
     <section class="pt-32 pb-16 md:pt-44 md:pb-24 px-6 max-w-6xl mx-auto flex flex-col items-start justify-center min-h-[85vh]">
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold mb-6">
-            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> Open to Senior Data Engineer & ETL Roles
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> Open to Senior Data Engineer roles — data platforms &amp; AI systems
         </div>
         
         <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-            Engineering Reliable <br class="hidden sm:block">
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-500">ETL Pipelines & Cloud Data Platforms</span>.
+            A data engineer who <br class="hidden sm:block">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-500">ships AI systems</span>.
         </h1>
         <p class="text-sm md:text-base font-mono text-emerald-400 mb-6 tracking-wide">
-            → A data engineer who ships AI systems — in production, behind a review gate.
+            → Engineering reliable ETL pipelines &amp; cloud data platforms — in production, behind a review gate.
         </p>
         
+        <p class="text-lg md:text-2xl text-slate-300 max-w-3xl mb-4 leading-relaxed font-light">
+            I'm <strong class="text-white font-semibold">Sri Omkar D</strong>, a Senior Data Engineer with 7+ years building enterprise ETL pipelines and cloud migrations — DataStage, SSIS, PySpark, AWS-native platforms.
+        </p>
+
+        <p class="text-lg md:text-2xl text-slate-300 max-w-3xl mb-4 leading-relaxed font-light">
+            What I build now is LLM systems in production: my own job hunt runs on an AI-agent platform I built — fit scoring and tailored resumes over 2,300+ tracked jobs, WhatsApp outreach, and an MCP-served platform on quota-aware Gemini→Groq failover.
+        </p>
+
         <p class="text-lg md:text-2xl text-slate-300 max-w-3xl mb-8 leading-relaxed font-light">
-            I'm <strong class="text-white font-semibold">Sri Omkar D</strong>, a Senior Data Engineer with 7+ years of experience building enterprise ETL pipelines and leading cloud migration initiatives — IBM DataStage, SSIS, PySpark, and AWS-native data platforms — and shipping LLM systems in production: fit scoring and tailored resumes over 2,300+ tracked jobs, WhatsApp outreach, and an MCP-served platform, on quota-aware Gemini→Groq failover with a human review gate on every outbound action.
+            A human reviews every outbound action before it leaves the system.
         </p>
         
         <div class="flex flex-wrap items-center gap-4">
@@ -75,9 +83,9 @@
         </div>
         <p class="text-sm text-slate-400 mt-6">
             Shipped, not demoed:
-            <a href="https://github.com/sri1513/de-job-intelligence" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-medium">MCP-served job platform</a> ·
+            <a href="https://mcp.sriomkar.com" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-medium">AI-agent job platform (MCP-served)</a> ·
             <a href="https://llm.sriomkar.com" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-medium">self-hosted LLM lab</a> ·
-            <span class="text-slate-300">production RAG (pgvector) + LangGraph agents</span>
+            <a href="https://github.com/sri1513/de-job-intelligence" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-medium">production RAG (pgvector) + LangGraph agents</a>
         </p>
     </section>
 
@@ -126,12 +134,15 @@
                         <span>Production System</span>
                     </div>
                     <h3 class="text-lg font-bold text-white mb-2 group-hover:text-cyan-400 transition">
-                        Job Intelligence Data Platform — Ingestion to Serving
+                        de-job-intelligence — an AI-agent platform that runs my own job hunt
                     </h3>
+                    <p class="text-xs text-cyan-300/90 leading-relaxed mb-4">2,300+ jobs tracked · 12 MCP tools live · pgvector retrieval + LangGraph agents, on a $0 budget</p>
                     <p class="text-xs text-slate-300 leading-relaxed mb-4">
-                        Engineered a production data platform ingesting high-volume job postings into PostgreSQL — schema design, dedup, fit scoring, and a JSON-RPC serving layer. The interesting parts are the failures it was designed around: provider quota exhaustion (multi-provider failover routing), bot-detection throttling (human-paced automation), and untrusted model output (human review gates before any write action).
+                        <strong class="text-white">Problem:</strong> I was tracking 2,300+ job postings across LinkedIn, Indeed and Dice by hand, with no fit signal and no memory between roles.<br>
+                        <strong class="text-white">Build:</strong> a production pipeline — JobSpy ingestion into Postgres, fit scoring, resume tailoring via a LangGraph graph, and a hand-rolled Starlette JSON-RPC 2.0 MCP server exposing 12 tools over pgvector retrieval. Gemini drafts with Groq failover when quota hits.<br>
+                        <strong class="text-white">Proof it works:</strong> it staged, scored and tailored every application in this hunt — including the Quantiphi Technical Architect resume built from its own data.<br>
+                        <strong class="text-white">Discipline:</strong> deterministic rules where a model would guess — a glossary that stopped the local model calling MCP "Microsoft Certified Professional", temperature 0.0.
                     </p>
-                    <p class="text-xs text-cyan-300/90 leading-relaxed mb-4">The AI story in one line: LLMs judge fit and draft tailored resumes — but humans approve every write before it leaves the system.</p>
                     <div class="bg-slate-950 border border-slate-800/80 rounded-lg p-3 text-[11px] font-mono text-slate-400 mb-4">
                         <span class="text-cyan-400">Flow:</span> Ingestion &rarr; PostgreSQL (Psycopg 3 Pool) &rarr; Fit Scoring &rarr; Tailored Resume &rarr; MCP API / Dashboard
                     </div>
@@ -152,6 +163,9 @@
                         <div class="flex items-center gap-4">
                             <a href="https://jobs.sriomkar.com" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition">
                                 Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
+                            </a>
+                            <a href="https://mcp.sriomkar.com" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition">
+                                MCP Server <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
                             </a>
                             <a href="https://github.com/sri1513/de-job-intelligence" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition">
                                 View Repo <i class="fa-brands fa-github text-sm"></i>
@@ -286,6 +300,17 @@
                         </span>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Debugged in production strip -->
+        <div class="mt-10 bg-slate-900/80 border border-cyan-500/30 rounded-2xl p-6">
+            <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-bug text-cyan-400"></i> Debugged in production
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-300 leading-relaxed">
+                <p><strong class="text-white">MCP hallucination:</strong> a local 3B model flagged a JD as requiring "Microsoft Certified Professional" — fixed with deterministic glossary injection and temperature 0.0; the model now resolves MCP correctly.</p>
+                <p><strong class="text-white">Herc skew fix:</strong> one Spark task hung 45 min while 199 finished in under 2 — null <code class="font-mono text-cyan-300">equipment_id</code> skew; salting + adaptive skew join cut runtime 25–30%.</p>
             </div>
         </div>
     </section>
