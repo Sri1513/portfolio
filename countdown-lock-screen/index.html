@@ -64,7 +64,7 @@
 
   /* Big picture strip */
   .big-picture { margin: 48px 0 8px; }
-  .big-picture h2, .flow h2, .gemini h2, .servers h2, .honest h2 {
+  .big-picture h2, .flow h2, .gemini h2, .miles-logic h2 {
     font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
     color: #ffd9a0; margin-bottom: 16px; text-align: center;
   }
@@ -131,14 +131,18 @@
   .card p { font-size: 14.5px; color: #cfe3de; }
   .card p b { color: #f2f7f7; }
 
-  /* Servers */
-  .servers { margin-top: 48px; }
-  .servers ul { list-style: none; max-width: 640px; margin: 0 auto; }
-  .servers li {
+  /* Milestone logic */
+  .miles-logic { margin-top: 48px; }
+  .miles-intro { max-width: 640px; margin: 0 auto 16px; font-size: 15px; color: #cfe3de; text-align: center; }
+  .miles-intro b { color: #ffd9a0; }
+  .miles-logic ul { list-style: none; max-width: 640px; margin: 0 auto; }
+  .miles-logic li {
     padding: 12px 0; border-top: 1px solid rgba(255,255,255,.10); font-size: 15px; color: #cfe3de;
   }
-  .servers li:last-child { border-bottom: 1px solid rgba(255,255,255,.10); }
-  .servers li b { color: #f2f7f7; }
+  .miles-logic li:last-child { border-bottom: 1px solid rgba(255,255,255,.10); }
+  .miles-logic li b { color: #f2f7f7; }
+  .miles-note { max-width: 640px; margin: 14px auto 0; font-size: 14px; color: #9fc9c3; text-align: center; }
+  .infra-line { max-width: 640px; margin: 40px auto 0; font-size: 14px; color: #9fc9c3; text-align: center; }
 
   footer { text-align: center; margin-top: 56px; font-size: 14px; color: #9fc9c3; }
   footer p { margin-bottom: 6px; }
@@ -170,6 +174,19 @@
   </section>
 
   <div class="now" id="nowLine"><b>Right now the phone shows:</b> Commonwealth of Pennsylvania &mdash; Senior Data Engineer, OIT (fit 63, deadline Nov 30), pinned through Gemini. The Amazon screen above is the contest entry.</div>
+
+  <section class="miles-logic">
+    <h2>How a milestone gets checked off</h2>
+    <p class="miles-intro">A milestone is not checked off because its date passed. It is checked off because the database says the step happened. <b>The database-driven check-off is in build now, completing by midnight tonight.</b></p>
+    <ul>
+      <li><b>Job saved</b> &mdash; done when the job exists in PostgreSQL. It is in the database, so it is done.</li>
+      <li><b>Fit Check Passed</b> &mdash; done when Gemini&rsquo;s fit score is on the row. No score, no check.</li>
+      <li><b>Tailored package built</b> &mdash; done when the tailored resume, cover letter, and outreach exist for the job.</li>
+      <li><b>Application submitted</b> &mdash; done when the application status reads submitted and the submitted time is stamped.</li>
+      <li><b>Follow up if no receipt / Reply expected</b> &mdash; these are not check-offs. They are dates the system watches: the follow-up goes out if no receipt arrives, and the reply window is anchored to the deadline.</li>
+    </ul>
+    <p class="miles-note">Today the page still checks a milestone off when its date passes. These rules replace that tonight.</p>
+  </section>
 
   <section class="big-picture">
     <h2>The big picture</h2>
@@ -267,15 +284,7 @@
     </div>
   </section>
 
-  <section class="servers">
-    <h2>Servers &mdash; one does the work</h2>
-    <ul>
-      <li><b>One Oracle Cloud VM</b> runs the Starlette dashboard (<code>jobs.sriomkar.com</code>), the hand-rolled MCP server (<code>mcp.sriomkar.com</code>), and PostgreSQL 16 &mdash; behind Cloudflare, on Always Free.</li>
-      <li><b>Cloud AI, no servers of his:</b> Gemini API and Groq API. The models run on their clouds; his server only sends prompts and stores results.</li>
-      <li><b>His phone</b> is the display endpoint, via the Android wallpaper app.</li>
-      <li><b>The wider lab</b> (a local LLM node and a ThinkPad Spark server) builds and learns &mdash; it does not serve the lock screen.</li>
-    </ul>
-  </section>
+  <p class="infra-line">Runs on one Oracle Cloud VM &mdash; dashboard, MCP server, and PostgreSQL behind Cloudflare. The AI runs on the Gemini and Groq clouds.</p>
 
   <footer>
     <p><a href="https://jobs.sriomkar.com/lockscreen?job_id=li-4492976688&amp;deadline=2026-12-07T23:59:00-05:00&amp;fit=hide&amp;bg=forest">Live lock screen</a> &middot; <a href="https://jobs.sriomkar.com">Dashboard</a> &middot; <a href="https://mcp.sriomkar.com">MCP server</a></p>
