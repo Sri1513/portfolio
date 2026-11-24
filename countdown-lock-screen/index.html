@@ -3,158 +3,342 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deadline Lock Screen — Pax8, Nov 30</title>
+<title>Deadline, On Lock — How the live lock screen works</title>
+<meta name="description" content="The system behind the Deadline, On Lock countdown lock screen: an autonomous, Gemini-orchestrated job-hunt pipeline that puts one dream Data Engineer job on the phone lock screen.">
 <!--
-  Countdown lock screen — Handshake AI Skills Studio x Google challenge
-  "Your Deadline, Your Design: Create a Countdown Lock Screen"
-  Entry window: Nov 1–23, 2026, 11:59 PM PT. Top three win $1,000.
+  Deadline, On Lock — the interactive flow map.
+  Companion to the Handshake AI Skills Studio x Google entry
+  "Deadline, On Lock: 14 Days to Amazon" (entry window Nov 1-23, 2026).
 
-  HOW TO USE: open this file on your phone (or in a 390x844 browser window),
-  screenshot it, and use that screenshot as the project cover image.
-  To change the deadline or milestones, edit CONFIG below — nothing else.
-  The countdown updates live every second; no network or server needed.
+  The lock screen in the phone frame below is LIVE: it is the real page
+  served by jobs.sriomkar.com, embedded here. It ticks. The eight stages
+  underneath are the pipeline behind it — tap any stage to open it.
+  Every number on this page was verified against the live system Nov 23, 2026.
 -->
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { height: 100%; }
+  html { scroll-behavior: smooth; }
   body {
     font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #0b1f22;
-    display: flex; justify-content: center;
+    background: #08161a;
     color: #f2f7f7;
+    line-height: 1.55;
   }
-  /* Phone-sized lock screen: 390 x 844 */
-  .screen {
-    width: 390px; max-width: 100vw; min-height: 844px; height: 100dvh;
-    position: relative; overflow: hidden;
-    background:
-      radial-gradient(120% 60% at 50% 0%, #14655f 0%, #0b1f22 55%),
-      linear-gradient(180deg, #0e2a2e 0%, #08161a 100%);
-    padding: 0 28px 34px;
-    display: flex; flex-direction: column;
-  }
-  /* Top ~150px deliberately empty: room for the phone clock + status icons */
-  .clock-space { height: 148px; flex: none; }
+  a { color: #7fd4c9; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px 64px; }
+
+  header { text-align: center; padding: 56px 20px 8px; }
   .eyebrow {
     font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
-    color: #7fd4c9; text-align: center; margin-bottom: 10px;
+    color: #ffd9a0; margin-bottom: 12px;
   }
-  .deadline-name {
-    font-size: 26px; line-height: 1.2; font-weight: 700;
-    text-align: center;
+  h1 { font-size: 40px; line-height: 1.15; font-weight: 800; }
+  h1 em { font-style: normal; color: #2fb3a3; }
+  .lede { max-width: 640px; margin: 16px auto 0; font-size: 17px; color: #cfe3de; }
+  .lede b { color: #f2f7f7; }
+
+  /* Live phone */
+  .phone-section { text-align: center; margin: 40px 0 8px; }
+  .phone-section h2 { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #ffd9a0; margin-bottom: 16px; }
+  .phone {
+    margin: 0 auto;
+    width: min(390px, 100%);
+    border: 10px solid #16181a;
+    border-radius: 46px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,.6), 0 0 0 2px rgba(255,255,255,.08), inset 0 0 0 2px rgba(255,255,255,.06);
+    background: #08161a;
+    line-height: 0;
   }
-  .deadline-sub {
-    font-size: 14px; color: #b9d6d2; text-align: center; margin-top: 6px;
+  .phone iframe { width: 100%; aspect-ratio: 390 / 844; border: 0; display: block; background: #08161a; }
+  .phone-caption { margin-top: 14px; font-size: 14px; color: #9fc9c3; }
+  .phone-caption b { color: #cfe3de; }
+
+  /* Live current job line */
+  .now {
+    max-width: 640px; margin: 28px auto 0; padding: 14px 18px;
+    background: rgba(47,179,163,.10); border: 1px solid rgba(47,179,163,.35);
+    border-radius: 16px; font-size: 15px; text-align: center;
   }
-  .count { display: flex; justify-content: center; gap: 10px; margin: 26px 0 6px; }
-  .unit {
-    width: 74px; padding: 12px 0 10px; text-align: center;
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.14); border-radius: 16px;
+  .now b { color: #ffd9a0; }
+
+  /* Big picture strip */
+  .big-picture { margin: 48px 0 8px; }
+  .big-picture h2, .flow h2, .gemini h2, .servers h2, .honest h2 {
+    font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
+    color: #ffd9a0; margin-bottom: 16px; text-align: center;
   }
-  .unit b { display: block; font-size: 32px; font-weight: 800; font-variant-numeric: tabular-nums; }
-  .unit span { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #9fc9c3; }
-  .due { text-align: center; font-size: 13px; color: #b9d6d2; margin-bottom: 22px; }
-  .bar-track { height: 8px; border-radius: 99px; background: rgba(255,255,255,.14); overflow: hidden; }
-  .bar-fill { height: 100%; width: 0%; border-radius: 99px; background: #2fb3a3; transition: width .5s; }
-  .bar-label { display: flex; justify-content: space-between; font-size: 12px; color: #9fc9c3; margin: 8px 2px 26px; }
-  .miles-title { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: #7fd4c9; margin-bottom: 12px; }
-  .mile {
-    display: flex; align-items: center; gap: 12px;
-    padding: 12px 4px; border-top: 1px solid rgba(255,255,255,.10);
-    font-size: 15px;
+  .strip {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center;
+    font-size: 15px; font-weight: 700;
   }
-  .mile:last-child { border-bottom: 1px solid rgba(255,255,255,.10); }
-  .dot {
-    width: 26px; height: 26px; flex: none; border-radius: 50%;
-    border: 2px solid #2fb3a3; display: flex; align-items: center; justify-content: center;
-    font-size: 14px; color: #2fb3a3;
+  .strip span {
+    background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14);
+    border-radius: 99px; padding: 8px 14px; white-space: nowrap;
   }
-  .mile.done .dot { background: #2fb3a3; color: #08161a; }
-  .mile.done .mile-text { color: #8fb3ae; text-decoration: line-through; }
-  .mile-date { margin-left: auto; font-size: 12px; color: #9fc9c3; white-space: nowrap; }
-  .mile.next .mile-text { font-weight: 700; }
-  .mile.next .dot { box-shadow: 0 0 0 4px rgba(47,179,163,.25); }
-  .foot { margin-top: auto; padding-top: 26px; text-align: center; font-size: 12px; color: #7fa8a2; }
+  .strip i { color: #2fb3a3; font-style: normal; font-weight: 800; }
+  .strip-note { text-align: center; color: #9fc9c3; font-size: 14px; margin-top: 12px; }
+
+  /* Flow stages */
+  .flow { margin-top: 48px; }
+  .flow-controls { text-align: center; margin-bottom: 12px; }
+  .flow-controls button {
+    font: inherit; font-size: 14px; cursor: pointer;
+    background: rgba(255,255,255,.07); color: #f2f7f7;
+    border: 1px solid rgba(255,255,255,.2); border-radius: 99px; padding: 7px 16px;
+  }
+  .flow-controls button:hover { background: rgba(255,255,255,.13); }
+  .stage {
+    border: 1px solid rgba(255,255,255,.14); border-radius: 18px;
+    background: rgba(255,255,255,.04); margin-bottom: 10px; overflow: hidden;
+  }
+  .stage-head {
+    width: 100%; display: flex; align-items: baseline; gap: 14px;
+    background: none; border: 0; cursor: pointer; text-align: left;
+    padding: 16px 18px; color: #f2f7f7; font: inherit;
+  }
+  .stage-head:hover { background: rgba(255,255,255,.04); }
+  .num {
+    flex: none; width: 30px; height: 30px; border-radius: 50%;
+    background: #2fb3a3; color: #062a26; font-weight: 800; font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+    transform: translateY(3px);
+  }
+  .stage-head h3 { font-size: 18px; font-weight: 700; }
+  .stage-head .one { color: #9fc9c3; font-size: 14px; margin-top: 2px; }
+  .stage-head .titles { flex: 1; }
+  .chev { flex: none; color: #7fd4c9; font-size: 18px; transition: transform .2s; }
+  .stage.open .chev { transform: rotate(90deg); }
+  .stage-body { display: none; padding: 0 18px 18px 62px; color: #cfe3de; font-size: 15px; }
+  .stage.open .stage-body { display: block; }
+  .stage-body p { margin-bottom: 8px; }
+  .stage-body p:last-child { margin-bottom: 0; }
+  .stage-body b { color: #f2f7f7; }
+  .stage-body code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13.5px;
+    background: rgba(0,0,0,.35); padding: 1px 6px; border-radius: 6px; color: #ffd9a0;
+  }
+  .connector { text-align: center; color: #2fb3a3; font-size: 20px; line-height: 1; margin: -4px 0 2px; }
+
+  /* Gemini band */
+  .gemini { margin-top: 48px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .card {
+    border: 1px solid rgba(255,255,255,.14); border-radius: 18px;
+    background: rgba(255,255,255,.04); padding: 18px;
+  }
+  .card h3 { font-size: 17px; margin-bottom: 6px; }
+  .card p { font-size: 14.5px; color: #cfe3de; }
+  .card p b { color: #f2f7f7; }
+
+  /* Servers */
+  .servers { margin-top: 48px; }
+  .servers ul { list-style: none; max-width: 640px; margin: 0 auto; }
+  .servers li {
+    padding: 12px 0; border-top: 1px solid rgba(255,255,255,.10); font-size: 15px; color: #cfe3de;
+  }
+  .servers li:last-child { border-bottom: 1px solid rgba(255,255,255,.10); }
+  .servers li b { color: #f2f7f7; }
+
+  /* Honesty */
+  .honest { margin-top: 48px; }
+  .honest ul { list-style: none; max-width: 640px; margin: 0 auto; }
+  .honest li {
+    padding: 10px 0 10px 28px; border-top: 1px solid rgba(255,255,255,.10);
+    font-size: 14.5px; color: #cfe3de; position: relative;
+  }
+  .honest li:last-child { border-bottom: 1px solid rgba(255,255,255,.10); }
+  .honest li::before { content: "\2713"; position: absolute; left: 4px; color: #2fb3a3; font-weight: 800; }
+  .honest li b { color: #f2f7f7; }
+
+  footer { text-align: center; margin-top: 56px; font-size: 14px; color: #9fc9c3; }
+  footer p { margin-bottom: 6px; }
+  @media (max-width: 560px) {
+    h1 { font-size: 30px; }
+    .stage-body { padding-left: 18px; }
+  }
 </style>
 </head>
 <body>
-<div class="screen">
-  <div class="clock-space"></div>
+<div class="wrap">
 
-  <div class="eyebrow">Your deadline</div>
-  <div class="deadline-name" id="jobTitle">Pax8 — Senior Data Engineer II</div>
-  <div class="deadline-sub">Remote (US) &middot; $175K&ndash;$225K</div>
+  <header>
+    <div class="eyebrow">Handshake AI Skills Studio &times; Google</div>
+    <h1>Deadline, <em>On Lock</em></h1>
+    <p class="lede">The lock screen is the calm surface. Underneath it runs <b>de-job-intelligence</b> —
+      an autonomous, Gemini-orchestrated pipeline that finds Data Engineer roles, scores them,
+      tailors the application, tracks the deadline, and moves on to the next dream job when one closes.
+      This page is the map of that system. Tap any stage to open it.</p>
+  </header>
 
-  <div class="count">
-    <div class="unit"><b id="d">14</b><span>Days</span></div>
-    <div class="unit"><b id="h">00</b><span>Hours</span></div>
-    <div class="unit"><b id="m">00</b><span>Mins</span></div>
-    <div class="unit"><b id="s">00</b><span>Secs</span></div>
-  </div>
-  <div class="due" id="dueLine">Applications close Nov 30, 2026</div>
+  <section class="phone-section" aria-label="Live lock screen">
+    <h2>The live screen, right now</h2>
+    <div class="phone">
+      <iframe title="Live Amazon Data Engineer countdown lock screen" src="https://jobs.sriomkar.com/lockscreen?job_id=li-4492976688&amp;deadline=2026-12-07T23:59:00-05:00&amp;fit=hide&amp;bg=forest"></iframe>
+    </div>
+    <p class="phone-caption"><b>It ticks.</b> This is the real page the entry links to, not a screenshot.
+      <a href="https://jobs.sriomkar.com/lockscreen?job_id=li-4492976688&amp;deadline=2026-12-07T23:59:00-05:00&amp;fit=hide&amp;bg=forest">Open the live lock screen &rarr;</a></p>
+  </section>
 
-  <div class="bar-track"><div class="bar-fill" id="bar"></div></div>
-  <div class="bar-label"><span id="barStart">Nov 16</span><span id="barPct">0% of the runway used</span><span>Nov 30</span></div>
+  <div class="now" id="nowLine"><b>Right now the phone shows:</b> Commonwealth of Pennsylvania &mdash; Senior Data Engineer, OIT (fit 63, deadline Nov 30), pinned through Gemini. The Amazon screen above is the contest entry.</div>
 
-  <div class="miles-title">Milestones</div>
-  <div id="miles"></div>
+  <section class="big-picture">
+    <h2>The big picture</h2>
+    <div class="strip">
+      <span>Find</span><i>&rarr;</i><span>Score</span><i>&rarr;</i><span>Tailor</span><i>&rarr;</i><span>Apply</span><i>&rarr;</i><span>Track</span><i>&rarr;</i><span>Follow up</span><i>&rarr;</i><span>Move on</span>
+    </div>
+    <p class="strip-note">One deadline on the phone. A whole operating system behind it.</p>
+  </section>
 
-  <div class="foot">Built for the countdown — one deadline, no noise.</div>
+  <section class="flow">
+    <h2>How it works &mdash; eight stages, end to end</h2>
+    <div class="flow-controls"><button id="toggleAll" type="button">Expand all</button></div>
+
+    <div class="stage">
+      <button class="stage-head" type="button" aria-expanded="false"><span class="num">1</span><span class="titles"><h3>Scrape</h3><span class="one">Fresh Data Engineer postings, pulled automatically.</span></span><span class="chev">&#8250;</span></button>
+      <div class="stage-body">
+        <p>Scheduled scrapers (JobSpy for LinkedIn, Dice) plus Gmail job-alert pipelines pull new Data Engineer postings into the system, deduplicated on arrival. The <b>real posted date is captured from the source</b> &mdash; never the day the system happened to save it.</p>
+        <p>Latest batch, Nov 23: <b>21 jobs scraped, 3 new ones saved</b>.</p>
+      </div>
+    </div>
+    <div class="connector">&#8595;</div>
+
+    <div class="stage">
+      <button class="stage-head" type="button" aria-expanded="false"><span class="num">2</span><span class="titles"><h3>Store</h3><span class="one">Everything lands in PostgreSQL, the source of truth.</span></span><span class="chev">&#8250;</span></button>
+      <div class="stage-body">
+        <p>PostgreSQL 16 holds <b>~2,454 saved jobs</b>. Each row carries the title, company, location, full description, posted date, fit score, and application status. Nothing the phone shows is typed by hand &mdash; it is read from this database.</p>
+      </div>
+    </div>
+    <div class="connector">&#8595;</div>
+
+    <div class="stage">
+      <button class="stage-head" type="button" aria-expanded="false"><span class="num">3</span><span class="titles"><h3>Score</h3><span class="one">Gemini API evaluates fit. The number stays honest.</span></span><span class="chev">&#8250;</span></button>
+      <div class="stage-body">
+        <p>A zero-cost local TF-IDF pre-score filters the noise first, then the <b>Gemini API</b> deep-evaluates fit and updates the row. The chain fails over: Gemini flash-lite &rarr; Groq &rarr; paid Gemini 2.5-flash.</p>
+        <p>The Amazon role scored <b>29/100</b>. That number is hidden from the contest display only &mdash; it is never rewritten anywhere.</p>
+      </div>
+    </div>
+    <div class="connector">&#8595;</div>
+
+    <div class="stage">
+      <button class="stage-head" type="button" aria-expanded="false"><span class="num">4</span><span class="titles"><h3>Tailor</h3><span class="one">RAG + LangGraph build the application package.</span></span><span class="chev">&#8250;</span></button>
+      <div class="stage-body">
+        <p>For roles worth pursuing, a RAG layer (<b>pgvector, 6,179 job chunks</b>, hybrid search + semantic dedup) and a <b>LangGraph tailoring agent</b> build the tailored resume, cover letter, and recruiter outreach &mdash; from the full live job description, never from a summary. Every draft passes a human review gate before anything is sent.</p>
+      </div>
+    </div>
+    <div class="connector">&#8595;</div>
+
+    <div class="stage">
+      <button class="stage-head" type="button" aria-expanded="false"><span class="num">5</span><span class="titles"><h3>Deadline</h3><span class="one">Posted date + 7 days, derived on the server.</span></span><span class="chev">&#8250;</span></button>
+      <div class="stage-body">
+        <p>Every job gets a <b>7-day deadline counted from its real posted date</b>, derived server-side at 23:59 America/New_York. Amazon was posted Nov 21, so its system deadline is <b>Nov 28</b>. The Dec 7 date in the contest link is the showcase deadline for the entry &mdash; 14 days from the entry, matching the title.</p>
+      </div>
+    </div>
+    <div class="connector">&#8595;</div>
+
+    <div class="stage">
+      <button class="stage-head" type="button" aria-expanded="false"><span class="num">6</span><span class="titles"><h3>Serve</h3><span class="one">One job, projected to a live lock-screen URL.</span></span><span class="chev">&#8250;</span></button>
+      <div class="stage-body">
+        <p><code>GET /lockscreen</code> renders any saved job as its own countdown screen. <code>GET /api/lockscreen/current</code> serves the one job that matters most right now: the <b>highest-fit live job whose deadline hasn&rsquo;t passed</b> &mdash; or the job pinned by hand. The milestones are computed backward from the deadline: saved, fit check, package built, submitted, follow-up, reply expected.</p>
+      </div>
+    </div>
+    <div class="connector">&#8595;</div>
+
+    <div class="stage">
+      <button class="stage-head" type="button" aria-expanded="false"><span class="num">7</span><span class="titles"><h3>Advance</h3><span class="one">When a job closes, the next one takes its place.</span></span><span class="chev">&#8250;</span></button>
+      <div class="stage-body">
+        <p>A worker runs <b>daily (09:00 VM time)</b>. It moves expired jobs into a separate deadline queue, re-checks each posting page for real &mdash; an unreachable page reads as &ldquo;unknown&rdquo;, never &ldquo;closed&rdquo; &mdash; and marks it closed, rejected, or applied. When the current job leaves for a verified reason, <b>Gemini drafts a WhatsApp notification</b> saying what left, why, and what&rsquo;s next. Expiry alone stays silent.</p>
+      </div>
+    </div>
+    <div class="connector">&#8595;</div>
+
+    <div class="stage">
+      <button class="stage-head" type="button" aria-expanded="false"><span class="num">8</span><span class="titles"><h3>Display</h3><span class="one">The Android wallpaper app follows the endpoint.</span></span><span class="chev">&#8250;</span></button>
+      <div class="stage-body">
+        <p>The wallpaper app polls the current-job endpoint <b>every time the lock screen shows</b> and reloads only when the job changes. If the endpoint is unreachable it falls back to the saved link &mdash; never a blank screen. Backgrounds (glow, mist, fog, forest, rain, custom image) are picked in the app&rsquo;s settings. A website cannot set a phone&rsquo;s wallpaper by itself &mdash; the app is the honest route.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="gemini">
+    <h2>Gemini is the operator</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>MCP client</h3>
+        <p>Gemini calls the <b>14 MCP tools</b> on <code>mcp.sriomkar.com</code> &mdash; searching jobs, staging them, pinning the lock-screen job. Verified Nov 23: Gemini cleared the old pin and pinned the Commonwealth job, and the endpoint served it within the minute.</p>
+      </div>
+      <div class="card">
+        <h3>Gemini API drafting</h3>
+        <p>Fit evaluation, tailoring drafts, and advance notifications all run on the <b>Gemini API</b>, with Groq as failover. The models reason; the database remembers; a human approves.</p>
+      </div>
+      <div class="card">
+        <h3>Human stays in charge</h3>
+        <p>The machine never submits, sends, or applies on its own. <b>Final look, submit tap, and pin are the owner&rsquo;s</b> &mdash; the system does the heavy lifting, he makes the calls.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="servers">
+    <h2>Servers &mdash; one does the work</h2>
+    <ul>
+      <li><b>One Oracle Cloud VM</b> runs the Starlette dashboard (<code>jobs.sriomkar.com</code>), the hand-rolled MCP server (<code>mcp.sriomkar.com</code>), and PostgreSQL 16 &mdash; behind Cloudflare, on Always Free.</li>
+      <li><b>Cloud AI, no servers of his:</b> Gemini API and Groq API. The models run on their clouds; his server only sends prompts and stores results.</li>
+      <li><b>His phone</b> is the display endpoint, via the Android wallpaper app.</li>
+      <li><b>The wider lab</b> (a local LLM node and a ThinkPad Spark server) builds and learns &mdash; it does not serve the lock screen.</li>
+    </ul>
+  </section>
+
+  <section class="honest">
+    <h2>Honest notes</h2>
+    <ul>
+      <li><b>Dec 7 is the showcase deadline</b> for the entry (14 days from the entry). The system&rsquo;s own 7-day rule gives the Amazon job a Nov 28 deadline.</li>
+      <li><b>Fit 29/100 is hidden, never rewritten.</b> The database still says 29.</li>
+      <li><b>Milestone checks are date-derived today</b> &mdash; a milestone reads done when its date passes. The database-state version is the next build after the contest.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p><a href="https://jobs.sriomkar.com/lockscreen?job_id=li-4492976688&amp;deadline=2026-12-07T23:59:00-05:00&amp;fit=hide&amp;bg=forest">Live lock screen</a> &middot; <a href="https://jobs.sriomkar.com">Dashboard</a> &middot; <a href="https://mcp.sriomkar.com">MCP server</a></p>
+    <p>Deadline, On Lock &mdash; built by Sri Omkar, operated with Gemini. Every number verified against the live system, Nov 23, 2026.</p>
+  </footer>
+
 </div>
 
 <script>
-  // ---- CONFIG: change only these two blocks to retarget the screen ----
-  var DEADLINE = new Date("2026-11-30T23:59:00-05:00"); // Pax8 apply deadline
-  var START     = new Date("2026-11-16T00:00:00-05:00"); // when the countdown began
-  var MILESTONES = [
-    { text: "Build the tailored package", date: "Nov 17", done: true },
-    { text: "Final look — resume + cover letter", date: "Nov 18", done: true },
-    { text: "Submit on Pax8 Workday", date: "Nov 20", done: true },
-    { text: "Follow up if no receipt", date: "Nov 24", done: false }
-  ];
-  // ----------------------------------------------------------------------
-
-  var pad = function (n) { return String(n).padStart(2, "0"); };
-
-  function renderMiles() {
-    var box = document.getElementById("miles");
-    box.innerHTML = "";
-    var nextMarked = false;
-    MILESTONES.forEach(function (ms) {
-      var div = document.createElement("div");
-      var cls = "mile" + (ms.done ? " done" : (!nextMarked ? " next" : ""));
-      if (!ms.done && !nextMarked) nextMarked = true;
-      div.className = cls;
-      div.innerHTML =
-        '<span class="dot">' + (ms.done ? "&#10003;" : "") + "</span>" +
-        '<span class="mile-text">' + ms.text + "</span>" +
-        '<span class="mile-date">' + ms.date + "</span>";
-      box.appendChild(div);
+  // Stage expand/collapse.
+  var stages = document.querySelectorAll(".stage");
+  function setStage(stage, open) {
+    stage.classList.toggle("open", open);
+    stage.querySelector(".stage-head").setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  stages.forEach(function (stage) {
+    stage.querySelector(".stage-head").addEventListener("click", function () {
+      setStage(stage, !stage.classList.contains("open"));
+      syncToggleAll();
     });
+  });
+  var toggleAll = document.getElementById("toggleAll");
+  function syncToggleAll() {
+    var openCount = document.querySelectorAll(".stage.open").length;
+    toggleAll.textContent = openCount === stages.length ? "Collapse all" : "Expand all";
   }
+  toggleAll.addEventListener("click", function () {
+    var allOpen = document.querySelectorAll(".stage.open").length === stages.length;
+    stages.forEach(function (stage) { setStage(stage, !allOpen); });
+    syncToggleAll();
+  });
 
-  function tick() {
-    var now = new Date();
-    var diff = DEADLINE - now;
-    if (diff < 0) diff = 0;
-    var days = Math.floor(diff / 86400000);
-    var hrs  = Math.floor(diff / 3600000) % 24;
-    var mins = Math.floor(diff / 60000) % 60;
-    var secs = Math.floor(diff / 1000) % 60;
-    document.getElementById("d").textContent = days;
-    document.getElementById("h").textContent = pad(hrs);
-    document.getElementById("m").textContent = pad(mins);
-    document.getElementById("s").textContent = pad(secs);
-    var total = DEADLINE - START, used = now - START;
-    var pct = Math.max(0, Math.min(100, Math.round((used / total) * 100)));
-    document.getElementById("bar").style.width = pct + "%";
-    document.getElementById("barPct").textContent = pct + "% of the runway used";
-  }
-
-  renderMiles();
-  tick();
-  setInterval(tick, 1000);
+  // Live current job: replace the static line when the endpoint answers.
+  // If the fetch is blocked (CORS/offline), the static text stays — it is
+  // the verified state as of Nov 23, 2026.
+  fetch("https://jobs.sriomkar.com/api/lockscreen/current")
+    .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
+    .then(function (j) {
+      var el = document.getElementById("nowLine");
+      el.innerHTML = "<b>Right now the phone shows:</b> " + j.company + " &mdash; " + j.title +
+        " (fit " + j.fit_score + ", deadline " + j.deadline_display + "), live from the endpoint. The Amazon screen above is the contest entry.";
+    })
+    .catch(function () { /* keep the static line */ });
 </script>
 </body>
 </html>
